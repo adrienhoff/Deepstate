@@ -95,14 +95,13 @@ def commit_and_push_to_github(repo_dir, file_name):
     except subprocess.CalledProcessError as e:
         print(f"Error during Git operations: {e}")
 
-output_path = "C:\\Users\\adrie\\deepstate.kml"
+output_path = "C:\\Users\\adrie\\Deepstate KML\\deepstate.kml"
 kml.save(output_path)
 print(f"KML saved to {output_path}")
 
 repo_dir = os.path.dirname(output_path)
 file_name = os.path.basename(output_path)
 commit_and_push_to_github(repo_dir, file_name)
-print(f"KML pushed to git")
 
 print("Restarting the script in 10 minutes...")
 time.sleep(600)
