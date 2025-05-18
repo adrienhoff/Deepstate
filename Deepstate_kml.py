@@ -95,7 +95,7 @@ def commit_and_push_to_github(repo_dir, file_name):
     except subprocess.CalledProcessError as e:
         print(f"Error during Git operations: {e}")
 
-output_path = "C:\\Users\\adrie\\Deepstate KML\\deepstate.kml"
+output_path = "C:\\Users\\adrie\\Deepstate_KML\\deepstate.kml"
 kml.save(output_path)
 print(f"KML saved to {output_path}")
 
