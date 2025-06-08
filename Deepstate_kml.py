@@ -69,23 +69,29 @@ def generate_kml(data):
 
         else:
             print("Unknown geometry type:", geom_type)
-    
+
     return kml
+
+def is_repo_dirty():
+    output = subprocess.check_output(["git", "status", "--porcelain"]).decode("utf-8")
+    return bool(output.strip())
 
 def commit_and_push_to_github(repo_dir, file_name):
     try:
         os.chdir(repo_dir)
-        status_output = subprocess.check_output(["git", "status", "--short"]).decode("utf-8")
-        print("Git status:\n", status_output)
-
         subprocess.run(["git", "add", file_name], check=True)
         subprocess.run(["git", "add", "Deepstate_kml.py"], check=True)
+
+        if not is_repo_dirty():
+            print("No changes detected in Git. Skipping commit.")
+            return
+
         commit_message = f"Update {file_name} - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
         subprocess.run(["git", "commit", "-m", commit_message], check=True)
         subprocess.run(["git", "push"], check=True)
 
         print(f"Committed and pushed {file_name} to GitHub successfully.")
-    
+
     except subprocess.CalledProcessError as e:
         print(f"Error during Git operations: {e}")
 
